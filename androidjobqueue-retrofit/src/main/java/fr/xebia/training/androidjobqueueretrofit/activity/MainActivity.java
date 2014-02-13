@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity {
         super.onPause();
     }
 
-    public void onEvent(BoxOfficeDownloadedEvent event){
+    public void onEventMainThread(BoxOfficeDownloadedEvent event){
         mFragment.updateBoxOffice(event.boxOffice);
     }
 }
