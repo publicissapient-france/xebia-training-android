@@ -1,4 +1,4 @@
-package fr.xebia.training.robospiceretrofit.service;
+package fr.xebia.training.robospiceretrofit.api;
 
 import fr.xebia.training.robospiceretrofit.model.BoxOffice;
 import retrofit.http.GET;
@@ -9,6 +9,8 @@ import retrofit.http.GET;
  * Time: 05:31
  */
 public interface MovieApi {
+
+    public final static String BASE_URL = "http://xebiamobiletest.herokuapp.com/api/public/v1.0";
 
     @GET("/lists/movies/box_office.json")
     BoxOffice listMovies();

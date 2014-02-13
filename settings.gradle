@@ -1,1 +1,1 @@
-include ':robospice-retrofit'
+include ':robospice-retrofit', ':androidjobqueue-retrofit'

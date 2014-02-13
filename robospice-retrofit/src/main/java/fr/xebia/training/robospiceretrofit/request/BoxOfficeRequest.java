@@ -2,7 +2,7 @@ package fr.xebia.training.robospiceretrofit.request;
 
 import com.octo.android.robospice.request.retrofit.RetrofitSpiceRequest;
 import fr.xebia.training.robospiceretrofit.model.BoxOffice;
-import fr.xebia.training.robospiceretrofit.service.MovieApi;
+import fr.xebia.training.robospiceretrofit.api.MovieApi;
 
 /**
  * User: mounirboudraa

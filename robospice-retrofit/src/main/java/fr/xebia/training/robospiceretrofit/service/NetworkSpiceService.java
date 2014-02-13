@@ -1,6 +1,7 @@
 package fr.xebia.training.robospiceretrofit.service;
 
 import com.octo.android.robospice.retrofit.RetrofitGsonSpiceService;
+import fr.xebia.training.robospiceretrofit.api.MovieApi;
 
 /**
  * User: mounirboudraa
@@ -9,7 +10,7 @@ import com.octo.android.robospice.retrofit.RetrofitGsonSpiceService;
  */
 public class NetworkSpiceService extends RetrofitGsonSpiceService {
 
-    private final static String BASE_URL = "http://xebiamobiletest.herokuapp.com/api/public/v1.0";
+
 
     @Override
     public void onCreate() {
@@ -19,7 +20,7 @@ public class NetworkSpiceService extends RetrofitGsonSpiceService {
 
     @Override
     protected String getServerUrl() {
-        return BASE_URL;
+        return MovieApi.BASE_URL;
 
     }
 }
