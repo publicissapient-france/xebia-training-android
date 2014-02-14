@@ -21,6 +21,7 @@ public class MainActivity extends BaseActivity {
     ListMovieFragment mFragment;
     JobManager mJobManager = JobQueueApplication.getInstance().getJobManager();
     EventBus mEventBus = EventBus.getDefault();
+    BoxOfficeJob boxOfficeJob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,9 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         mFragment = (ListMovieFragment) getFragmentManager().findFragmentById(R.id.listmovie_fragment);
+        boxOfficeJob = new BoxOfficeJob();
+
+
     }
 
 
@@ -35,7 +39,7 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mEventBus.register(this);
-        mJobManager.addJobInBackground(new BoxOfficeJob());
+        mJobManager.addJobInBackground(boxOfficeJob);
     }
 
     @Override
@@ -47,4 +51,5 @@ public class MainActivity extends BaseActivity {
     public void onEventMainThread(BoxOfficeDownloadedEvent event){
         mFragment.updateBoxOffice(event.boxOffice);
     }
+
 }

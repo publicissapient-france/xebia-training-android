@@ -1,0 +1,22 @@
+Récupération du certificat
+-----------------------------
+    Open the webservice url
+    Double-click the padlock icon (or right-click on page and select Page Info)
+    Click on the Security tab (the padlock icon)
+    Press View Certificate
+    Click on the Details tab
+    Press Export...
+    Choose a file to save to - I like to save as type: X.509 Certification (DER)
+
+
+ouvrir bks pour voir certificats
+----------------------------------
+keytool -list -v -keystore "keystore.bks" -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath "bcprov-jdk15on-146.jar" -storetype BKS -storepass "keystore"
+
+importer certificat
+---------------------
+keytool -importcert -v -trustcacerts -file "cert.crt" -alias prod -keystore "keystore.bks" -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath "bcprov-jdk15on-146.jar" -storetype BKS -storepass "keystore"
+
+supprimer certificat
+----------------------
+keytool -delete -alias prod -trustcacerts -file "cert.crt" -alias prod -keystore "keystore.bks" -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath "bcprov-jdk15on-146.jar" -storetype BKS -storepass "keystore"
