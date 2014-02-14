@@ -1,1 +1,1 @@
-include ':robospice-retrofit', ':androidjobqueue-retrofit', ':retrofit-embeddedkeystore'
+include ':robospice-retrofit', ':androidjobqueue-retrofit', ':retrofit-embeddedkeystore', ':androidannotation'
