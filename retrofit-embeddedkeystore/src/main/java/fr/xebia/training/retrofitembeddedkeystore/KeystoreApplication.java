@@ -1,6 +1,7 @@
 package fr.xebia.training.retrofitembeddedkeystore;
 
 import android.app.Application;
+import android.util.Log;
 import com.squareup.okhttp.OkHttpClient;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
@@ -50,13 +51,20 @@ public class KeystoreApplication extends Application {
     private void initRetrofit() {
 
         KeyStoreConfiguration conf = new KeyStoreConfiguration(R.raw.keystore, "keystore");
-        OkHttpClient okHttpClient = OkHttpClientFactory.getInstance()
-                .newSecuredHttpClient(this, conf);
+        OkHttpClient okHttpClient = null;
+        try {
+            okHttpClient = OkHttpClientFactory.getInstance()
+                    .newSecuredHttpClient(this, conf);
+        } catch (Exception e) {
+            Log.e("RETROFIT", "Failed to create Secured Http Client -> " + e);
+        }
 
 
-        mRestAdapter = new RestAdapter.Builder()
-                .setClient(new OkClient(okHttpClient))
-                .build();
+        RestAdapter.Builder builder = new RestAdapter.Builder();
+        if (okHttpClient != null) {
+            builder.setClient(new OkClient(okHttpClient));
+        }
+        mRestAdapter = builder.build();
 
     }
 

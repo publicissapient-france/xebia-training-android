@@ -1,7 +1,6 @@
 package fr.xebia.training.retrofitembeddedkeystore;
 
 import android.content.Context;
-import android.util.Log;
 import com.squareup.okhttp.OkHttpClient;
 
 import javax.net.ssl.SSLContext;
@@ -9,6 +8,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -25,24 +25,20 @@ public class OkHttpClientFactory {
     private OkHttpClientFactory() {
     }
 
-    public OkHttpClient newSecuredHttpClient(Context context, KeyStoreConfiguration conf){
+    public OkHttpClient newSecuredHttpClient(Context context, KeyStoreConfiguration conf) throws CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, KeyManagementException {
         OkHttpClient httpClient = new OkHttpClient();
         httpClient.setSslSocketFactory(createSSLSocketFactory(context,conf));
         return httpClient;
     }
 
 
-    private SSLSocketFactory createSSLSocketFactory(Context context, KeyStoreConfiguration conf) {
-        try {
+    private SSLSocketFactory createSSLSocketFactory(Context context, KeyStoreConfiguration conf) throws KeyManagementException, NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
             KeyStore trusted = getKeyStore(context,conf);
             TrustManagerFactory tmf = getTrustManagerFactory(trusted);
             SSLContext ctx = SSLContext.getInstance("TLS");
             ctx.init(null, tmf.getTrustManagers(), null);
             return ctx.getSocketFactory();
-        } catch (Exception e) {
-            Log.e("SSLSocketFactory", e.toString());
-            return null;
-        }
+
     }
 
     private KeyStore getKeyStore(Context context, KeyStoreConfiguration conf) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException {
